@@ -13,13 +13,5 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/(.*)", "dest": "/public/$1" }
-  ],
-  "env": {
-    "DATABASE_URL": "@database-url",
-    "NOTIFY_EMAIL": "@notify-email",
-    "SMTP_HOST": "@smtp-host",
-    "SMTP_PORT": "@smtp-port",
-    "SMTP_USER": "@smtp-user",
-    "SMTP_PASS": "@smtp-pass"
-  }
+  ]
 }
