@@ -30,7 +30,7 @@ module.exports = async function handler(req, res) {
     // Email notification (non-blocking)
     const stars = rating ? '\u2605'.repeat(rating) + '\u2606'.repeat(5 - rating) : 'No rating';
     sendNotification(
-      `New FocusFlow Feedback ${stars}`,
+      `New DecisionEase Feedback ${stars}`,
       `<h2>New Feedback Received</h2>
       <table style="border-collapse:collapse;">
         <tr><td style="padding:4px 12px;font-weight:bold;">Email</td><td>${email || 'Anonymous'}</td></tr>

@@ -44,7 +44,7 @@ module.exports = async function handler(req, res) {
 
     // Email notification (non-blocking)
     sendNotification(
-      `New FocusFlow Signup (#${total})`,
+      `New DecisionEase Signup (#${total})`,
       `<h2>New Waitlist Signup</h2>
       <table style="border-collapse:collapse;">
         <tr><td style="padding:4px 12px;font-weight:bold;">Name</td><td>${firstName} ${lastName || ''}</td></tr>

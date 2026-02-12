@@ -18,7 +18,7 @@ async function sendNotification(subject, html) {
     });
 
     await transport.sendMail({
-      from: `"FocusFlow" <${SMTP_USER}>`,
+      from: `"DecisionEase" <${SMTP_USER}>`,
       to: NOTIFY_EMAIL,
       subject,
       html,
