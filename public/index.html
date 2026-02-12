@@ -365,8 +365,8 @@
             <div class="flex gap-3 justify-center" id="ratingGroup"></div>
           </div>
           <div class="mb-4">
-            <label for="features" class="block text-sm font-medium text-slate-500 mb-1.5">Which features interest you most?</label>
-            <input type="text" id="features" placeholder="e.g. AI prioritization, goal tracking..."
+            <label for="fbFeatures" class="block text-sm font-medium text-slate-500 mb-1.5">Which features interest you most?</label>
+            <input type="text" id="fbFeatures" placeholder="e.g. AI prioritization, goal tracking..."
               class="w-full px-5 py-3.5 rounded-xl border-2 border-emerald-100 bg-white outline-none focus:border-emerald-400 transition-all text-base" />
           </div>
           <div class="mb-6">
@@ -559,7 +559,7 @@
       var body = {
         email: document.getElementById('fbEmail').value.trim(),
         rating: selectedRating || null,
-        features: document.getElementById('features').value.trim(),
+        features: document.getElementById('fbFeatures').value.trim(),
         message: document.getElementById('fbMessage').value.trim(),
       };
 
