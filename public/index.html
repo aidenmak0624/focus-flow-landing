@@ -1,304 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FocusFlow — AI-Powered Productivity</title>
-  <meta name="description" content="FocusFlow is an AI-powered personal productivity app that helps you manage tasks, track goals, and optimize your workflow with intelligent prioritization." />
-  <meta property="og:title" content="FocusFlow — AI-Powered Productivity" />
-  <meta property="og:description" content="Manage tasks, track goals, and boost your workflow with AI-powered prioritization." />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusFlow | Stop Doomscrolling. Start Doing.</title>
+  <meta name="description" content="Your personalized AI teammate that turns overwhelm into action. Join the waitlist for early access." />
+  <meta property="og:title" content="FocusFlow — Stop Doomscrolling. Start Doing." />
+  <meta property="og:description" content="AI-powered productivity for humans who want to focus on what matters." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --primary: #6366f1; --primary-dark: #4f46e5; --primary-light: #818cf8;
-      --accent: #f59e0b; --bg: #0f0f23; --bg-card: #1a1a2e; --bg-input: #16213e;
-      --text: #e2e8f0; --text-muted: #94a3b8; --border: #334155;
-      --success: #22c55e; --error: #ef4444;
+      --lavender: #E6E6FA;
+      --sage: #D1E8E2;
+      --coral: #F4C2C2;
+      --charcoal: #36454F;
     }
-    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden;
+      font-family: 'DM Sans', sans-serif;
+      background-color: #fdfaff;
+      color: var(--charcoal);
+      overflow-x: hidden;
     }
-
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(15,15,35,0.85); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(99,102,241,0.15); padding: 0 2rem; }
-    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex;
-      align-items: center; justify-content: space-between; height: 64px; }
-    .logo { font-size: 1.4rem; font-weight: 800;
-      background: linear-gradient(135deg, var(--primary-light), var(--accent));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
-    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem;
-      font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-
-    /* HERO */
-    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle at 50% 30%, rgba(99,102,241,0.12) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 70%, rgba(245,158,11,0.08) 0%, transparent 40%);
-      animation: float 20s ease-in-out infinite; }
+    .heading-serif { font-family: 'Fraunces', serif; }
+    .glass {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .floating { animation: float 6s ease-in-out infinite; }
     @keyframes float {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(2%, -1%) rotate(1deg); }
-      66% { transform: translate(-1%, 1%) rotate(-1deg); }
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
     }
-    .hero-content { position: relative; z-index: 1; max-width: 800px; }
-    .badge { display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3);
-      color: var(--primary-light); padding: 0.35rem 1rem; border-radius: 9999px;
-      font-size: 0.8rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 0.02em; }
-    .badge .dot { width: 6px; height: 6px; background: var(--success);
-      border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-    h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800; line-height: 1.1;
-      margin-bottom: 1.25rem; letter-spacing: -0.03em; }
-    h1 .gradient { background: linear-gradient(135deg, var(--primary-light), var(--accent));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; }
-
-    /* BUTTONS */
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.75rem 1.75rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s; border: none; text-decoration: none; }
-    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff; box-shadow: 0 4px 20px rgba(99,102,241,0.35); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(99,102,241,0.5); }
+    .gradient-bg { background: linear-gradient(135deg, #fdfaff 0%, #E6E6FA 100%); }
+    .btn-primary {
+      background-color: var(--charcoal);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(54, 69, 79, 0.2);
+    }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-    .btn-outline:hover { border-color: var(--primary-light); color: var(--primary-light); }
-    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    /* SECTIONS */
-    section { padding: 5rem 2rem; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .section-title { text-align: center; margin-bottom: 3.5rem; }
-    .section-title h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700;
-      margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-    .section-title p { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
-
-    /* FEATURES */
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .feature-card { background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 2rem; transition: all 0.3s; }
-    .feature-card:hover { border-color: var(--primary); transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(99,102,241,0.1); }
-    .feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex;
-      align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem; }
-    .feature-card h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .feature-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
-
-    /* HOW IT WORKS */
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem; counter-reset: step; }
-    .step { text-align: center; counter-increment: step; }
-    .step::before { content: counter(step); display: flex; align-items: center;
-      justify-content: center; width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white; font-size: 1.3rem; font-weight: 700; margin: 0 auto 1rem; }
-    .step h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .step p { color: var(--text-muted); font-size: 0.9rem; }
-
-    /* FORMS */
-    #signup { background: linear-gradient(180deg, var(--bg) 0%, rgba(99,102,241,0.05) 100%); }
-    .signup-card, .feedback-card { max-width: 560px; margin: 0 auto; background: var(--bg-card);
-      border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; text-align: center; }
-    .signup-card h2, .feedback-card h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .signup-card > p, .feedback-card > p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
-    .form-group { margin-bottom: 1rem; text-align: left; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 500;
-      margin-bottom: 0.35rem; color: var(--text-muted); }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%; padding: 0.7rem 1rem; border-radius: 10px; border: 1px solid var(--border);
-      background: var(--bg-input); color: var(--text); font-size: 0.9rem;
-      font-family: inherit; transition: border-color 0.2s; }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
-    .form-group textarea { resize: vertical; min-height: 80px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-msg { margin-top: 0.75rem; padding: 0.6rem 1rem; border-radius: 8px;
-      font-size: 0.85rem; display: none; }
-    .form-msg.success { display: block; background: rgba(34,197,94,0.12); color: var(--success);
-      border: 1px solid rgba(34,197,94,0.3); }
-    .form-msg.error { display: block; background: rgba(239,68,68,0.12); color: var(--error);
-      border: 1px solid rgba(239,68,68,0.3); }
-
-    /* RATING */
-    .rating-group { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1rem; }
-    .rating-btn { width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--border);
-      background: var(--bg-input); color: var(--text-muted); font-size: 1.1rem;
-      cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-    .rating-btn:hover, .rating-btn.active { border-color: var(--accent);
-      background: rgba(245,158,11,0.15); color: var(--accent); }
-
-    /* STATS */
-    .stat-row { display: flex; justify-content: center; gap: 3rem; margin-top: 2.5rem; flex-wrap: wrap; }
-    .stat { text-align: center; }
-    .stat .num { font-size: 2rem; font-weight: 800; font-variant-numeric: tabular-nums;
-      background: linear-gradient(135deg, var(--primary-light), var(--accent));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .stat .lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
-
-    /* SPINNER */
-    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(230, 230, 250, 0.5);
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: var(--lavender); border-radius: 10px; }
+    @keyframes slideIn {
+      from { transform: translateX(20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .form-msg { margin-top: 0.75rem; padding: 0.75rem 1rem; border-radius: 1rem; font-size: 0.9rem; display: none; text-align: center; }
+    .form-msg.success { display: block; background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .form-msg.error { display: block; background: rgba(239, 68, 68, 0.1); color: #dc2626; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; }
-    footer p { color: var(--text-muted); font-size: 0.85rem; }
-
-    @media (max-width: 640px) {
-      .form-row { grid-template-columns: 1fr; }
-      .nav-links { gap: 0.75rem; }
-      .signup-card, .feedback-card { padding: 1.5rem; }
+    .rating-btn {
+      width: 48px; height: 48px; border-radius: 1rem; border: 2px solid #e2e8f0;
+      background: white; color: #94a3b8; font-size: 1.1rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .rating-btn:hover, .rating-btn.active {
+      border-color: #f59e0b; background: rgba(245,158,11,0.1); color: #f59e0b;
     }
   </style>
 </head>
-<body>
+<body class="gradient-bg">
 
-  <nav>
-    <div class="nav-inner">
-      <a href="#" class="logo">FocusFlow</a>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#feedback">Feedback</a>
-        <a href="#signup" class="btn btn-primary" style="padding:0.5rem 1.25rem;font-size:0.85rem;">Get Early Access</a>
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3 shadow-sm">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-purple-400 rounded-lg flex items-center justify-center text-white">
+          <i data-lucide="zap" class="w-5 h-5"></i>
+        </div>
+        <span class="text-xl font-bold tracking-tight">FocusFlow</span>
       </div>
+      <div class="hidden md:flex gap-8 font-medium">
+        <a href="#problem" class="hover:text-purple-600 transition-colors">The Gap</a>
+        <a href="#features" class="hover:text-purple-600 transition-colors">How it Works</a>
+        <a href="#feedback" class="hover:text-purple-600 transition-colors">Feedback</a>
+      </div>
+      <a href="#signup" class="bg-slate-800 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-black transition-all no-underline">
+        Early Access
+      </a>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <div class="badge"><span class="dot"></span> Now in Early Access</div>
-      <h1>Your AI-Powered<br /><span class="gradient">Productivity Companion</span></h1>
-      <p>FocusFlow intelligently manages your tasks, tracks your goals, and adapts to your working style — so you can focus on what truly matters.</p>
-      <div class="hero-actions">
-        <a href="#signup" class="btn btn-primary">Join the Waitlist</a>
-        <a href="#features" class="btn btn-outline">Learn More</a>
+  <!-- Hero Section -->
+  <section class="relative pt-32 pb-20 px-6 overflow-hidden">
+    <div class="absolute top-20 right-[-10%] w-[400px] h-[400px] bg-purple-200 rounded-full blur-[100px] opacity-50 -z-10"></div>
+    <div class="absolute bottom-10 left-[-5%] w-[300px] h-[300px] bg-emerald-100 rounded-full blur-[80px] opacity-40 -z-10"></div>
+
+    <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
+      <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-1.5 rounded-full text-sm font-bold mb-8 animate-bounce">
+        <span class="flex h-2 w-2 rounded-full bg-purple-600"></span>
+        Now accepting founding users
       </div>
-      <div class="stat-row">
-        <div class="stat">
-          <div class="num" id="statSignups">—</div>
-          <div class="lbl">Waitlist Signups</div>
+
+      <h1 class="heading-serif text-5xl md:text-7xl lg:text-8xl mb-6 leading-tight max-w-4xl">
+        Stop Doomscrolling. <br>
+        <span class="text-purple-500 italic">Start Doing.</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl leading-relaxed">
+        Your personalized AI teammate that turns
+        <span class="bg-purple-50 px-1 border-b-2 border-purple-200">"I have so much to do"</span> into
+        <span class="bg-emerald-50 px-1 border-b-2 border-emerald-200 text-emerald-700">"Done."</span>
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 items-center">
+        <a href="#signup" class="btn-primary px-10 py-5 rounded-2xl text-lg font-bold flex items-center gap-2 no-underline">
+          Join Early Access — Free
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </a>
+        <p class="text-sm text-slate-400 font-medium italic">No credit card required. Pure focus.</p>
+      </div>
+
+      <!-- Live Stats -->
+      <div class="flex justify-center gap-8 md:gap-16 mt-16 flex-wrap">
+        <div class="text-center">
+          <div class="text-3xl font-bold bg-gradient-to-r from-purple-500 to-amber-500 bg-clip-text text-transparent" id="statSignups">—</div>
+          <div class="text-sm text-slate-400 font-medium mt-1">Waitlist Signups</div>
         </div>
-        <div class="stat">
-          <div class="num" id="statRating">—</div>
-          <div class="lbl">Avg Rating</div>
+        <div class="text-center">
+          <div class="text-3xl font-bold bg-gradient-to-r from-purple-500 to-amber-500 bg-clip-text text-transparent" id="statRating">—</div>
+          <div class="text-sm text-slate-400 font-medium mt-1">Avg Rating</div>
         </div>
-        <div class="stat">
-          <div class="num" id="statFeedback">—</div>
-          <div class="lbl">Feedback Entries</div>
+        <div class="text-center">
+          <div class="text-3xl font-bold bg-gradient-to-r from-purple-500 to-amber-500 bg-clip-text text-transparent" id="statFeedback">—</div>
+          <div class="text-sm text-slate-400 font-medium mt-1">Feedback Entries</div>
+        </div>
+      </div>
+
+      <!-- Visual Mockup -->
+      <div class="mt-16 relative w-full max-w-4xl mx-auto">
+        <div class="glass p-4 rounded-[2rem] shadow-2xl floating">
+          <div class="bg-white rounded-2xl overflow-hidden shadow-inner flex flex-col md:flex-row">
+            <div class="p-8 md:w-1/2 text-left space-y-4">
+              <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600">
+                <i data-lucide="sparkles"></i>
+              </div>
+              <h3 class="text-2xl font-bold">Today's Focus</h3>
+              <div class="space-y-3">
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-3">
+                  <div class="w-5 h-5 border-2 border-purple-400 rounded-md"></div>
+                  <span class="font-medium">Design landing page copy</span>
+                </div>
+                <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center gap-3 opacity-60">
+                  <i data-lucide="check-circle" class="text-emerald-500 w-5 h-5"></i>
+                  <span class="line-through">Organize project moodboard</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-8 md:w-1/2 bg-purple-50 flex flex-col justify-center items-center border-l border-purple-100">
+              <div class="relative">
+                <div class="w-32 h-32 rounded-full border-[10px] border-white shadow-lg flex items-center justify-center">
+                  <span class="text-2xl font-bold text-purple-600">82%</span>
+                </div>
+                <div class="absolute -top-4 -right-4 bg-white p-3 rounded-2xl shadow-xl flex items-center gap-2">
+                  <i data-lucide="heart" class="w-4 h-4 text-pink-400 fill-pink-400"></i>
+                  <span class="text-xs font-bold text-slate-700 leading-none">Flow State Active</span>
+                </div>
+              </div>
+              <p class="mt-6 text-sm text-purple-400 font-bold uppercase tracking-widest">Energy Level: High</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FEATURES -->
-  <section id="features">
-    <div class="container">
-      <div class="section-title">
-        <h2>Everything You Need to Stay Focused</h2>
-        <p>AI-driven features designed around how you actually work</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon" style="background:rgba(99,102,241,0.15);color:var(--primary-light);">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+  <!-- Problem Section -->
+  <section id="problem" class="py-24 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row gap-16 items-center">
+        <div class="md:w-1/2 space-y-8">
+          <h2 class="heading-serif text-4xl md:text-5xl leading-tight">
+            Your brain has too <br> many tabs open.
+          </h2>
+          <p class="text-xl text-slate-600 leading-relaxed">
+            You have the ambition, but the execution gap is real. Information overload leads to decision fatigue, leaving you paralyzed even when you want to be productive.
+          </p>
+          <div class="p-6 bg-rose-50 border-l-4 border-rose-200 rounded-r-2xl">
+            <p class="font-medium text-rose-800 italic">
+              "Traditional to-do lists just pile up — they don't help you start."
+            </p>
           </div>
-          <h3>Smart Task Management</h3>
-          <p>Create, organize, and prioritize tasks with AI-powered suggestions. Subtasks, categories, and bulk operations keep everything streamlined.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon" style="background:rgba(245,158,11,0.15);color:var(--accent);">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div class="md:w-1/2 grid grid-cols-2 gap-4">
+          <div class="bg-slate-50 p-6 rounded-3xl space-y-4">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+              <i data-lucide="smartphone" class="w-5 h-5 text-slate-400"></i>
+            </div>
+            <p class="font-bold">Doomscrolling Trap</p>
           </div>
-          <h3>Goal Tracking</h3>
-          <p>Set measurable goals with milestones and track real-time progress. FocusFlow shows you if you're on track and suggests course corrections.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" style="background:rgba(34,197,94,0.15);color:var(--success);">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z"/><path d="M12 6v6"/><path d="M16 12h-4"/></svg>
+          <div class="bg-purple-50 p-6 rounded-3xl space-y-4 mt-8">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+              <i data-lucide="brain-circuit" class="w-5 h-5 text-purple-400"></i>
+            </div>
+            <p class="font-bold">Decision Fatigue</p>
           </div>
-          <h3>AI Priority Scoring</h3>
-          <p>Our AI analyzes deadlines, dependencies, and your patterns to automatically score and rank your most important work.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" style="background:rgba(168,85,247,0.15);color:#a855f7;">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <div class="bg-emerald-50 p-6 rounded-3xl space-y-4">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+              <i data-lucide="clock" class="w-5 h-5 text-emerald-400"></i>
+            </div>
+            <p class="font-bold">Execution Gap</p>
           </div>
-          <h3>Personalized Workflows</h3>
-          <p>Adaptive to your working style — whether you're a Challenger, Incrementalist, Deadline-Driven, or Routine Builder.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" style="background:rgba(236,72,153,0.15);color:#ec4899;">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 118 2.83"/><path d="M22 12A10 10 0 0012 2v10z"/></svg>
+          <div class="bg-amber-50 p-6 rounded-3xl space-y-4 mt-8">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+              <i data-lucide="alert-circle" class="w-5 h-5 text-amber-400"></i>
+            </div>
+            <p class="font-bold">Endless To-Dos</p>
           </div>
-          <h3>Analytics Dashboard</h3>
-          <p>Visual insights into your productivity patterns, completion rates, and time estimates to continuously improve your workflow.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon" style="background:rgba(14,165,233,0.15);color:#0ea5e9;">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          </div>
-          <h3>Secure &amp; Private</h3>
-          <p>JWT authentication, bcrypt encryption, and zero data sharing. Your productivity data stays yours — always.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how-it-works" style="background:rgba(99,102,241,0.03);">
-    <div class="container">
-      <div class="section-title">
-        <h2>Get Started in Minutes</h2>
-        <p>Three simple steps to transform your productivity</p>
+  <!-- Features Section -->
+  <section id="features" class="py-24 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-20">
+        <h2 class="heading-serif text-4xl md:text-5xl mb-6">Less Thinking. More Flow.</h2>
+        <p class="text-slate-500 text-lg">Finally, an AI that understands how your human brain actually works.</p>
       </div>
-      <div class="steps">
-        <div class="step"><h3>Sign Up</h3><p>Create your account and tell us about your working style and priorities.</p></div>
-        <div class="step"><h3>Add Your Tasks &amp; Goals</h3><p>Import or create your tasks. Set goals with milestones and let AI organize everything.</p></div>
-        <div class="step"><h3>Focus &amp; Achieve</h3><p>Follow AI-prioritized to-do lists, track progress, and celebrate your wins.</p></div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-[2.5rem] card-hover transition-all duration-300 flex flex-col">
+          <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 mb-6">
+            <i data-lucide="layers" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">The "Orchestrator"</h3>
+          <p class="text-slate-600 leading-relaxed mb-8">
+            Overwhelmed by a big project? FocusFlow breaks it down into tiny, actionable micro-steps tailored to your energy levels.
+          </p>
+          <div class="mt-auto pt-4 border-t border-purple-100 flex items-center gap-2 text-purple-600 font-bold text-sm uppercase tracking-wider">
+            Smart Prioritization <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="glass p-8 rounded-[2.5rem] card-hover transition-all duration-300 flex flex-col">
+          <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 mb-6">
+            <i data-lucide="shield-check" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Private & Personalized</h3>
+          <p class="text-slate-600 leading-relaxed mb-8">
+            Your goals stay yours. Built with a "Privacy-First" architecture, your data is secure and the AI learns you without selling you.
+          </p>
+          <div class="mt-auto pt-4 border-t border-emerald-100 flex items-center gap-2 text-emerald-600 font-bold text-sm uppercase tracking-wider">
+            Security Specs <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="glass p-8 rounded-[2.5rem] card-hover transition-all duration-300 flex flex-col">
+          <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 mb-6">
+            <i data-lucide="smile" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Compassionate Coach</h3>
+          <p class="text-slate-600 leading-relaxed mb-8">
+            No shame, no guilt. Just gentle nudges and smart scheduling to help you get back on track when life gets messy.
+          </p>
+          <div class="mt-auto pt-4 border-t border-amber-100 flex items-center gap-2 text-amber-600 font-bold text-sm uppercase tracking-wider">
+            Meet the Coach <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SIGNUP -->
-  <section id="signup">
-    <div class="container">
-      <div class="signup-card">
-        <h2>Get Early Access</h2>
-        <p>Join the waitlist and be the first to experience AI-powered productivity.</p>
+  <!-- Signup Section -->
+  <section id="signup" class="py-24 px-6 gradient-bg relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-200 to-transparent"></div>
+    <div class="max-w-xl mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="heading-serif text-4xl md:text-5xl mb-4">Be a Founding User.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Join the waitlist and be the first to experience AI-powered productivity.
+        </p>
+      </div>
+      <div class="glass rounded-[2.5rem] p-8 md:p-10 shadow-xl">
         <form id="signupForm" novalidate>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="firstName">First Name *</label>
-              <input type="text" id="firstName" required placeholder="Jane" autocomplete="given-name" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label for="firstName" class="block text-sm font-medium text-slate-500 mb-1.5">First Name *</label>
+              <input type="text" id="firstName" placeholder="Jane" autocomplete="given-name"
+                class="w-full px-5 py-3.5 rounded-xl border-2 border-purple-100 bg-white outline-none focus:border-purple-400 transition-all text-base" />
             </div>
-            <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" placeholder="Doe" autocomplete="family-name" />
+            <div>
+              <label for="lastName" class="block text-sm font-medium text-slate-500 mb-1.5">Last Name</label>
+              <input type="text" id="lastName" placeholder="Doe" autocomplete="family-name"
+                class="w-full px-5 py-3.5 rounded-xl border-2 border-purple-100 bg-white outline-none focus:border-purple-400 transition-all text-base" />
             </div>
           </div>
-          <div class="form-group">
-            <label for="signupEmail">Email Address *</label>
-            <input type="email" id="signupEmail" required placeholder="jane@example.com" autocomplete="email" />
+          <div class="mb-4">
+            <label for="signupEmail" class="block text-sm font-medium text-slate-500 mb-1.5">Email Address *</label>
+            <input type="text" id="signupEmail" placeholder="jane@example.com" autocomplete="email"
+              class="w-full px-5 py-3.5 rounded-xl border-2 border-purple-100 bg-white outline-none focus:border-purple-400 transition-all text-base" />
           </div>
-          <div class="form-group">
-            <label for="role">What best describes you?</label>
-            <select id="role">
+          <div class="mb-4">
+            <label for="role" class="block text-sm font-medium text-slate-500 mb-1.5">What best describes you?</label>
+            <select id="role"
+              class="w-full px-5 py-3.5 rounded-xl border-2 border-purple-100 bg-white outline-none focus:border-purple-400 transition-all text-base text-slate-700">
               <option value="">Select an option...</option>
               <option value="student">Student</option>
               <option value="freelancer">Freelancer / Solopreneur</option>
@@ -308,12 +316,15 @@
               <option value="other">Other</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="challenge">Biggest productivity challenge?</label>
-            <input type="text" id="challenge" placeholder="e.g. Too many tasks, can't prioritize..." />
+          <div class="mb-6">
+            <label for="challenge" class="block text-sm font-medium text-slate-500 mb-1.5">Biggest productivity challenge?</label>
+            <input type="text" id="challenge" placeholder="e.g. Too many tasks, can't prioritize..."
+              class="w-full px-5 py-3.5 rounded-xl border-2 border-purple-100 bg-white outline-none focus:border-purple-400 transition-all text-base" />
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;" id="signupBtn">
-            Join the Waitlist
+          <button type="submit" id="signupBtn"
+            class="btn-primary w-full py-4 rounded-2xl text-lg font-bold flex items-center justify-center gap-2">
+            Secure My Spot
+            <i data-lucide="check-circle" class="w-5 h-5"></i>
           </button>
           <div id="signupMsg" class="form-msg"></div>
         </form>
@@ -321,30 +332,37 @@
     </div>
   </section>
 
-  <!-- FEEDBACK -->
-  <section id="feedback">
-    <div class="container">
-      <div class="feedback-card">
-        <h2>Share Your Thoughts</h2>
-        <p>Your feedback helps us build the best productivity tool possible.</p>
+  <!-- Feedback Section -->
+  <section id="feedback" class="py-24 px-6 bg-white">
+    <div class="max-w-xl mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="heading-serif text-4xl md:text-5xl mb-4">Share Your Thoughts</h2>
+        <p class="text-lg text-slate-600">Your feedback helps us build the best productivity tool possible.</p>
+      </div>
+      <div class="glass rounded-[2.5rem] p-8 md:p-10 shadow-xl">
         <form id="feedbackForm" novalidate>
-          <div class="form-group">
-            <label for="fbEmail">Email (optional)</label>
-            <input type="email" id="fbEmail" placeholder="your@email.com" autocomplete="email" />
+          <div class="mb-4">
+            <label for="fbEmail" class="block text-sm font-medium text-slate-500 mb-1.5">Email (optional)</label>
+            <input type="text" id="fbEmail" placeholder="your@email.com" autocomplete="email"
+              class="w-full px-5 py-3.5 rounded-xl border-2 border-emerald-100 bg-white outline-none focus:border-emerald-400 transition-all text-base" />
           </div>
-          <div class="form-group" style="text-align:center;">
-            <label style="text-align:center;">How excited are you about FocusFlow?</label>
-            <div class="rating-group" id="ratingGroup"></div>
+          <div class="mb-5 text-center">
+            <label class="block text-sm font-medium text-slate-500 mb-3">How excited are you about FocusFlow?</label>
+            <div class="flex gap-3 justify-center" id="ratingGroup"></div>
           </div>
-          <div class="form-group">
-            <label for="features">Which features interest you most?</label>
-            <input type="text" id="features" placeholder="e.g. AI prioritization, goal tracking..." />
+          <div class="mb-4">
+            <label for="features" class="block text-sm font-medium text-slate-500 mb-1.5">Which features interest you most?</label>
+            <input type="text" id="features" placeholder="e.g. AI prioritization, goal tracking..."
+              class="w-full px-5 py-3.5 rounded-xl border-2 border-emerald-100 bg-white outline-none focus:border-emerald-400 transition-all text-base" />
           </div>
-          <div class="form-group">
-            <label for="fbMessage">Any additional feedback?</label>
-            <textarea id="fbMessage" placeholder="Tell us what you think, what you'd love to see, or any concerns..."></textarea>
+          <div class="mb-6">
+            <label for="fbMessage" class="block text-sm font-medium text-slate-500 mb-1.5">Any additional feedback?</label>
+            <textarea id="fbMessage" placeholder="Tell us what you think, what you'd love to see, or any concerns..."
+              class="w-full px-5 py-3.5 rounded-xl border-2 border-emerald-100 bg-white outline-none focus:border-emerald-400 transition-all text-base min-h-[100px] resize-y"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;background:linear-gradient(135deg, var(--accent), #d97706);" id="feedbackBtn">
+          <button type="submit" id="feedbackBtn"
+            class="w-full py-4 rounded-2xl text-lg font-bold flex items-center justify-center gap-2 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-all">
+            <i data-lucide="heart" class="w-5 h-5"></i>
             Submit Feedback
           </button>
           <div id="feedbackMsg" class="form-msg"></div>
@@ -353,17 +371,20 @@
     </div>
   </section>
 
-  <footer><p>&copy; 2026 FocusFlow. Built with intelligence, designed for humans.</p></footer>
+  <!-- Footer -->
+  <footer class="py-8 px-6 border-t border-purple-100 text-center">
+    <p class="text-slate-400 text-sm">&copy; 2026 FocusFlow. Built with intelligence, designed for humans.</p>
+  </footer>
 
   <script>
   (function () {
     'use strict';
+    lucide.createIcons();
 
-    // === API helper ===
-    const API_BASE = '/api'; // relative — works on same Vercel domain
+    const API_BASE = '/api';
 
     async function apiPost(endpoint, body) {
-      const res = await fetch(`${API_BASE}${endpoint}`, {
+      const res = await fetch(API_BASE + endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -376,26 +397,23 @@
     // === Load live stats ===
     async function loadStats() {
       try {
-        const res = await fetch(`${API_BASE}/stats`);
+        const res = await fetch(API_BASE + '/stats');
         if (!res.ok) return;
         const stats = await res.json();
         animateNumber('statSignups', stats.totalSignups || 0);
         document.getElementById('statRating').textContent =
-          stats.avgRating ? `${stats.avgRating}/5` : '—';
+          stats.avgRating ? stats.avgRating + '/5' : '—';
         animateNumber('statFeedback', stats.totalFeedback || 0);
-      } catch {
-        // Gracefully degrade — show dashes
-      }
+      } catch { /* gracefully degrade */ }
     }
 
     function animateNumber(elId, target) {
-      const el = document.getElementById(elId);
+      var el = document.getElementById(elId);
       if (!el || target === 0) { el.textContent = target; return; }
-      const duration = 1500;
-      const start = performance.now();
+      var duration = 1500, start = performance.now();
       function tick(now) {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
         el.textContent = Math.round(target * eased).toLocaleString();
         if (progress < 1) requestAnimationFrame(tick);
       }
@@ -403,30 +421,31 @@
     }
 
     // === Rating buttons ===
-    let selectedRating = 0;
-    const ratingGroup = document.getElementById('ratingGroup');
-    for (let i = 1; i <= 5; i++) {
-      const btn = document.createElement('button');
+    var selectedRating = 0;
+    var ratingGroup = document.getElementById('ratingGroup');
+    for (var i = 1; i <= 5; i++) {
+      var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'rating-btn';
       btn.dataset.val = i;
       btn.textContent = i;
-      btn.addEventListener('click', () => {
-        selectedRating = i;
-        ratingGroup.querySelectorAll('.rating-btn').forEach(b =>
-          b.classList.toggle('active', Number(b.dataset.val) <= i));
+      btn.addEventListener('click', function () {
+        selectedRating = Number(this.dataset.val);
+        ratingGroup.querySelectorAll('.rating-btn').forEach(function (b) {
+          b.classList.toggle('active', Number(b.dataset.val) <= selectedRating);
+        });
       });
       ratingGroup.appendChild(btn);
     }
 
     // === Signup form ===
-    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    document.getElementById('signupForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const btn = document.getElementById('signupBtn');
-      const msg = document.getElementById('signupMsg');
+      var btn = document.getElementById('signupBtn');
+      var msg = document.getElementById('signupMsg');
       msg.className = 'form-msg'; msg.textContent = '';
 
-      const body = {
+      var body = {
         firstName: document.getElementById('firstName').value.trim(),
         lastName: document.getElementById('lastName').value.trim(),
         email: document.getElementById('signupEmail').value.trim(),
@@ -444,28 +463,28 @@
       btn.innerHTML = '<span class="spinner"></span> Joining...';
 
       try {
-        const result = await apiPost('/signup', body);
+        var result = await apiPost('/signup', body);
         msg.className = 'form-msg success';
-        msg.textContent = result.message + (result.position ? ` You're #${result.position}.` : '');
+        msg.textContent = result.message + (result.position ? " You're #" + result.position + "." : '');
         e.target.reset();
-        loadStats(); // refresh hero counters
+        loadStats();
       } catch (err) {
         msg.className = 'form-msg error';
         msg.textContent = err.message;
       } finally {
         btn.disabled = false;
-        btn.textContent = 'Join the Waitlist';
+        btn.innerHTML = 'Secure My Spot <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
       }
     });
 
     // === Feedback form ===
-    document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+    document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const btn = document.getElementById('feedbackBtn');
-      const msg = document.getElementById('feedbackMsg');
+      var btn = document.getElementById('feedbackBtn');
+      var msg = document.getElementById('feedbackMsg');
       msg.className = 'form-msg'; msg.textContent = '';
 
-      const body = {
+      var body = {
         email: document.getElementById('fbEmail').value.trim(),
         rating: selectedRating || null,
         features: document.getElementById('features').value.trim(),
@@ -482,27 +501,27 @@
       btn.innerHTML = '<span class="spinner"></span> Submitting...';
 
       try {
-        const result = await apiPost('/feedback', body);
+        var result = await apiPost('/feedback', body);
         msg.className = 'form-msg success';
         msg.textContent = result.message;
         e.target.reset();
         selectedRating = 0;
-        ratingGroup.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('active'));
+        ratingGroup.querySelectorAll('.rating-btn').forEach(function (b) { b.classList.remove('active'); });
         loadStats();
       } catch (err) {
         msg.className = 'form-msg error';
         msg.textContent = err.message;
       } finally {
         btn.disabled = false;
-        btn.textContent = 'Submit Feedback';
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Submit Feedback';
       }
     });
 
     // === Smooth scroll ===
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
+        var target = document.querySelector(a.getAttribute('href'));
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
