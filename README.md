@@ -4,6 +4,8 @@
 
 DecisionEase is a **cognitive relief and execution support system**, not just another notes app, task app, or AI chat app. It is designed for people who experience cognitive overload (with particular care for ADHD / executive-function users): it captures scattered thoughts, compresses ambiguity into one clear next move, places work into real time, and carries context across days so you never have to start over.
 
+> 🌐 **Live landing page:** [decisionease.pages.dev](https://decisionease.pages.dev)
+>
 > 📦 **Note:** The source code for this project lives in a private repository. This README documents the system architecture and engineering approach publicly.
 >
 > 📖 For the product thinking and user journey design behind each screen, see [PRODUCT_OVERVIEW.md](./PRODUCT_OVERVIEW.md).
@@ -222,7 +224,7 @@ This project is also an experiment in **harness-engineered, AI-assisted developm
 
 DecisionEase is in **closed beta**. The current product phase focuses on *continuity and carry-forward*: visible commitment strength (`Must do` / `Planned` / `Flexible`), intentional outcomes for unfinished work (`Tomorrow` / `Later` / `Not now` / `Make smaller`), and noticing repeated slippage without ever becoming punitive.
 
-<!-- Optional: add a live demo link / screenshots / waitlist link here -->
+🌐 Visit the live landing page at **[decisionease.pages.dev](https://decisionease.pages.dev)** to learn more and join the waitlist.
 
 ---
 
